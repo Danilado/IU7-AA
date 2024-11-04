@@ -1,0 +1,67 @@
+\chapter{Технологическая часть}
+\section{Средства разработки}
+
+В качестве языка программирования был выбран python3~\cite{python3}, так как в его стандартной библиотеке присутсвуют функции замера процессорного времени, которые требуются в условиях, а также данный язык обладает множеством инструментов для визуализации и работы с данными и таблицами.
+
+В качестве основного файла был выбран инструмент jupyter notebook~\cite{python3-jupyter}, так как он позволяет организовать код в виде блоков,  а также выводить данные и графики прямо в нём, что позволяет наглядно продемонстрировать все замеры.
+
+Для построения графиков использовалась библиотека matplotlib~\cite{python3-matplotlib}.
+
+Для замера времени использовалась функция process\_time\_ns из стандартного модуля time~\cite{python3-time}.
+
+Для замеров памяти использовалась функция get\_traced\_memory стандартного модуля tracemalloc~\cite{tracemalloc}, которая получает текущую и пиковую выделенную память относительно начала замера.
+
+\section{Реализация алгоритмов}
+
+\lstinputlisting[label=table-fill,caption={алгоритм заполнения кэш-таблицы}]{../src/fill_table.py}
+
+\lstinputlisting[label=recursive-levenshtein,caption={Рекурсивный алгоритм нахождения расстояния Левенштейна}]{../src/levenstein_rec.py}
+
+\lstinputlisting[label=levenshtein,caption={Итерационный алгоритм нахождения расстояния Левенштейна с кешэм}]{../src/levenstein_iter.py}
+
+\lstinputlisting[label=damerau-levenshtein,caption={Итерационный алгоритм нахождения расстояния Дамерау-Левенштейна с кешэм}]{../src/damerau_levenstein.py}
+
+\section{Функциональные тесты}
+
+В таблице~\ref{tbl:func_tests} приведены тесты для алгоритмов нахождения расстояния Левенштейна и Дамерау Левенштейна.
+
+\begin{table}[ht]
+  \small
+  \caption{Функциональные тесты}
+  \label{tbl:func_tests}
+  \begin{threeparttable}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\bfseries Входные данные}
+        & \multicolumn{5}{c|}{\bfseries Алгоритм и расстояния} \\ 
+        \hline
+        &
+        &
+        \multicolumn{3}{c|}{Левенштейна} & \multicolumn{2}{c|}{Дамерау-Левенштейна} \\ \cline{3-7}
+        Строка 1 & Строка 2 & Рекурсивный & С кешем &  Ожидаемое & С кешем & Ожидаемое \\
+        \hline
+        lorem ipsum & dolor sit amet & 10 & 10 & 10 & 10 & 10 \\
+        \hline
+        lorem ipsum &  & 11 & 11 & 11 & 11 & 11 \\
+        \hline
+         & consectetur & 11 & 11 & 11 & 11 & 11 \\
+        \hline
+        LaTeX & latex & 3 & 3 & 3 & 3 & 3 \\
+        \hline
+        latex & altex & 2 & 2 & 2 & 1 & 1 \\ 
+        \hline
+        latex & laTxe & 3 & 3 & 3 & 2 & 2 \\ 
+        \hline
+        арбуз & автобус & 4 & 4 & 4 & 4 & 4 \\ 
+        \hline
+      \end{tabular}
+    \end{threeparttable}
+\end{table}
+
+Все тесты пройдены успешно
+
+\section*{Вывод}
+
+В ходе работы были разработаны алгоритмы поиска расстояния Левенштейна и Дамерау-Левенштейна, а также проведено их тестирование.
+
+\clearpage

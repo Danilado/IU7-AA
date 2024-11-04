@@ -1,0 +1,109 @@
+<mxfile host="65bd71144e">
+    <diagram id="5byCOjBxk4Sau83wux4i" name="Page-1">
+        <mxGraphModel dx="934" dy="1180" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="shape=loopLimit;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="-113" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="-175" width="120" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="table[i][0] = i" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="-30" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="shape=loopLimit;verticalAlign=middle;rounded=0;rotation=-180;editable=1;movable=1;resizable=1;rotatable=1;deletable=1;connectable=1;horizontal=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="33" width="120" height="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Конец цикла по i" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="40" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="shape=loopLimit;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="104" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="table[0][i] = i" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="187" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="shape=loopLimit;verticalAlign=middle;rounded=0;rotation=-180;editable=1;movable=1;resizable=1;rotatable=1;deletable=1;connectable=1;horizontal=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="250" width="120" height="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Конец цикла по i" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="257" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="1" vertex="1">
+                    <mxGeometry x="194" y="320" width="120" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="3" target="2" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="175" y="93" as="sourcePoint"/>
+                        <mxPoint x="225" y="43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2" target="4" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="175" y="93" as="sourcePoint"/>
+                        <mxPoint x="225" y="43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="4" target="5" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="175" y="93" as="sourcePoint"/>
+                        <mxPoint x="225" y="43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="5" target="7" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="175" y="93" as="sourcePoint"/>
+                        <mxPoint x="225" y="43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="16" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="7" target="8" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="175" y="93" as="sourcePoint"/>
+                        <mxPoint x="225" y="43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="8" target="9" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="175" y="93" as="sourcePoint"/>
+                        <mxPoint x="225" y="43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="18" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="9" target="11" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="175" y="93" as="sourcePoint"/>
+                        <mxPoint x="225" y="43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="Начало" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="224" y="-176.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="table_fill" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="224" y="-164.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Цикл i от 1 до" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="183" y="-105.5" width="142" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&amp;nbsp;len(table) с шагом 1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="187.5" y="-90.5" width="133" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Конец" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="224" y="314" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="table_fill" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="224" y="326" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Цикл i от 1 до" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="184.5" y="104" width="139" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="len(table[0]) с шагом" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="184.5" y="119" width="139" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="184.5" y="134" width="139" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

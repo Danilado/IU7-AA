@@ -1,0 +1,9 @@
+Length 1: rec - 0ms 	iter - 0ms 	damerau - 0ms
+Length 2: rec - 0ms 	iter - 1ms 	damerau - 0ms
+Length 3: rec - 2ms 	iter - 0ms 	damerau - 1ms
+Length 4: rec - 11ms 	iter - 1ms 	damerau - 0ms
+Length 5: rec - 61ms 	iter - 1ms 	damerau - 1ms
+Length 6: rec - 184ms 	iter - 1ms 	damerau - 2ms
+Length 7: rec - 1527ms 	iter - 2ms 	damerau - 2ms
+Length 8: rec - 8359ms 	iter - 2ms 	damerau - 2ms
+Length 9: ERROR...

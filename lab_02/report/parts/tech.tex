@@ -1,0 +1,204 @@
+\chapter{Технологическая часть}
+\section{Средства разработки}
+
+В качестве языка программирования был выбран python3~\cite{python3}, так как его стандартная библиотека достаточна для реализации данных алгоритмов, а также данный язык обладает множеством инструментов для визуализации и работы с данными и таблицами.
+
+В качестве основного файла был выбран инструмент jupyter notebook~\cite{python3-jupyter}, так как он позволяет организовать код в виде блоков, а также выводить данные и графики прямо в нём, что позволяет наглядно продемонстрировать все замеры.
+
+Для построения графиков использовалась библиотека matplotlib~\cite{python3-matplotlib}.
+
+Для замеров процессорного времени использовалась библиотека time~\cite{python3-time}
+
+\section{Реализация алгоритмов}
+
+\lstinputlisting[caption={Классический алгоритм умножения матриц}]{../src/simple.py}
+
+При реализации алгоритма Копперсмита-Винограда были применены следующие оптимизации:
+\begin{itemize}
+    \item инкремент счётчика наиболее вложенного цикла на 2; 
+    \item объединение III и IV частей алгоритма Винограда; 
+    \item вынос начальной итерации из каждого внешнего цикла.
+\end{itemize}
+
+\
+
+\
+
+\begin{lstlisting}[caption={Алгоритм Копперсмита-Винограда умножения матриц}]
+def multiply_optimized(A: list[list[float]], B: list[list[float]]) -> list[list[float]]:
+    if len(A[0]) != len(B):
+        raise ValueError("Size mismatch")
+    n: int = len(B)
+
+    res: list[list[float]] = [
+        [
+            0. for _ in range(len(B[0]))
+        ] for _ in range(len(A))
+    ]
+
+    Harr: list[float] = [0. for _ in range(len(A))]
+    Varr: list[float] = [0. for _ in range(len(B[0]))]
+
+    for j in range(n // 2):
+        Harr[0] = Harr[0] + A[0][2*j] * A[0][2*j + 1]
+
+    for i in range(1, len(A)):
+        for j in range(n // 2):
+            Harr[i] = Harr[i] + A[i][2*j] * A[i][2*j + 1]
+
+    #
+
+    for j in range(n // 2):
+        Varr[0] = Varr[0] + B[2*j][0] * B[2*j + 1][0]
+
+    for i in range(1, len(B[0])):
+        for j in range(n // 2):
+            Varr[i] = Varr[i] + B[2*j][i] * B[2*j + 1][i]
+
+    #
+
+    for j in range(len(B[0])):
+        res[0][j] = -Harr[0] - Varr[j]
+        for k in range(0, n - 1, 2):
+            res[0][j] = res[0][j] + (A[0][k] + B[k+1][j]) * \
+                (A[0][k+1] + B[k][j])
+        if n % 2 != 0:
+            res[0][j] += A[0][-1] * B[-1][j]
+
+    for i in range(1, len(A)):
+        for j in range(len(B[0])):
+            res[i][j] = -Harr[i] - Varr[j]
+            for k in range(0, n - 1, 2):
+                res[i][j] = res[i][j] + (A[i][k] + B[k+1][j]) * \
+                    (A[i][k+1] + B[k][j])
+            if n % 2 != 0:
+                res[i][j] = res[i][j] + A[i][-1] * B[-1][j]
+
+    return res
+\end{lstlisting}
+
+\section{Функциональные тесты}
+
+\begin{table}[h!]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{A} & \multirow{2}{*}{B} & \multirow{2}{*}{A$\times$B} & \multicolumn{3}{c|}{Результат выполнения алгоритма} \\ \cline{4-6} 
+&&& \multicolumn{1}{c|}{Классического} & \multicolumn{1}{c|}{Винограда} & Винограда с опт. \\
+\hline
+$\begin{pmatrix}
+    1 & 2 \\
+    3 & 4 \\
+    5 & 6
+\end{pmatrix}$
+&
+$
+\begin{pmatrix}
+    7 & 8 & 9 \\
+    0 & 1 & 2
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    7 & 10 & 13 \\
+    21& 28 & 35 \\
+    35& 46 & 57
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    7 & 10 & 13 \\
+    21& 28 & 35 \\
+    35& 46 & 57
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    7 & 10 & 13 \\
+    21& 28 & 35 \\
+    35& 46 & 57
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    7 & 10 & 13 \\
+    21& 28 & 35 \\
+    35& 46 & 57
+\end{pmatrix}
+$
+\\ \hline
+$
+\begin{pmatrix}
+    1 & 2 \\
+    3 & 4
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    5 & 6 \\
+    7 & 8
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    19 & 22 \\
+    43 & 50
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    19 & 22 \\
+    43 & 50
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    19 & 22 \\
+    43 & 50
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    19 & 22 \\
+    43 & 50
+\end{pmatrix}
+$
+\\ \hline
+$
+\begin{pmatrix}
+    1 & 2
+\end{pmatrix}
+$
+&
+$
+\begin{pmatrix}
+    3 & 4
+\end{pmatrix}
+$
+&
+---
+&
+---
+&
+---
+&
+---
+\\ \hline
+\end{tabular}
+\end{table}
+
+Все тесты пройдены успешно
+
+\section*{Вывод}
+
+В ходе работы были реализованы алгоритмы классического умножения матриц и умножения матриц Копперсмита-Винограда, а также было проведено их тестирование.
+
+\clearpage

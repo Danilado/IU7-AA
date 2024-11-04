@@ -1,0 +1,102 @@
+\chapter{Технологическая часть}
+\section{Средства разработки}
+
+В качестве языка программирования был выбран python3~\cite{python3}, так как его стандартная библиотека достаточна для реализации данных алгоритмов, а также данный язык обладает множеством инструментов для визуализации и работы с данными и таблицами.
+
+В качестве основного файла был выбран инструмент jupyter notebook~\cite{python3-jupyter}, так как он позволяет организовать код в виде блоков, а также выводить данные и графики прямо в нём, что позволяет наглядно продемонстрировать все замеры.
+
+Для построения графиков использовалась библиотека matplotlib~\cite{python3-matplotlib}.
+
+\section{Реализация алгоритмов}
+
+\begin{lstlisting}[label=simple-search,caption={Простой алгоритм поиска элемента в массиве}]
+def search(arr: list[int], x: int) -> int:
+  for i in range(len(arr)):
+      if arr[i] == x:
+          return i
+  return -1
+\end{lstlisting}
+
+\begin{lstlisting}[label=bin-search,caption={Бинарный алгоритм поиска элемента в массиве}]
+def binsearch(arr: list[int], x: int) -> int:
+  left = 0
+  right = len(arr) - 1
+
+  while left <= right:
+      c = (right + left) // 2
+      if arr[c] == x:
+          return c
+      elif arr[c] < x:
+          left = c + 1
+      else:
+          right = c - 1
+
+  return -1
+\end{lstlisting}
+
+Для замеров количества сравнений, были использованы модифицированные версии алгоритмов, которые подсчитывают сравнения в процессе работы.
+
+\section{Функциональные тесты}
+
+Для функционального тестирования были написаны специальные программы, генерирующие массивы и проверяющие результат работы алгоритма с настоящим положением элемента в массиве.
+
+Эти тесты включают в себя:
+\begin{itemize}
+  \item тест с элементом, не принадлежащим массиву (листинг~\ref{lst:test_nonexistent});
+  \item тест с поиском элемента в пустом массиве (листинг~\ref{lst:test_empty});
+  \item тесты с поиском существующего в массиве элемента (листинг~\ref{lst:test_search}).
+\end{itemize}
+
+\begin{lstlisting}[label=lst:test_nonexistent,caption={Тест поиска несуществующего элемента в массиве}]
+arr = [i for i in range(N)]
+
+res = simple.search(arr, -1)
+if (res == -1):
+    print("Nonexistent element test passed")
+else:
+    print("Nonexistent element test failed")
+
+res = binary.binsearch(arr, -1)
+if (res == -1):
+    print("Nonexistent element test passed")
+else:
+    print("Nonexistent element test failed")
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:test_empty,caption={Тест поиска элемента в пустом массиве}]
+res = simple.search([], 0)
+if (res == -1):
+    print("Empty array test passed")
+else:
+    print("Empty array test failed")
+
+res = binary.binsearch([], 0)
+if (res == -1):
+    print("Empty array test passed")
+else:
+    print("Empty array test failed")
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:test_search,caption={Тест поиска элементов в массиве}]
+arr = [i for i in range(N)]
+
+for i in range(N):
+    print(f"{i=}", end="\r")
+    res = simple.search(arr, i)
+    if res != i:
+        print(f"Simple search fail {i=}")
+
+for i in range(N):
+    print(f"{i=}", end="\r")
+    res = binary.binsearch(arr, i)
+    if res != i:
+        print(f"Binary search fail {i=}")
+\end{lstlisting}
+
+Все тесты пройдены успешно
+
+\section*{Вывод}
+
+В ходе работы были разработаны алгоритмы простого и бинарного поиска элемента в массиве, а также было проведено их тестирование.
+
+\clearpage
