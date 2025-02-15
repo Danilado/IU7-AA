@@ -1,0 +1,50 @@
+\chapter{Фрагмент кода}
+
+Для выполнения работы, был выбран фрагмент кода из лабораторной работы номер 5. Код представлен на листинге~\ref{lst:code}.
+
+\begin{lstlisting}[caption={Фрагмент кода из лабораторной работы номер 5}, label={lst:code}]
+std::vector<std::string> Parser::getSteps() {
+    auto candidates = filterNodes(GUMBO_TAG_DIV);       // 1
+    for (const GumboNode *node : candidates) {          // 2
+        if(!hasClass(node, "instructions"))             // 3
+            continue;
+
+        auto spans = filterNodes(node, GUMBO_TAG_SPAN); // 4
+        if (spans.empty())                              // 5
+            continue;
+
+        std::vector<std::string> res;                   // 6
+        res.resize(spans.size());                       // 7
+
+        for (const GumboNode *span : spans) {           // 8
+            std::string tmptext = extractText(span);    // 9
+            if (tmptext.size())                         // 10
+                res.emplace_back(tmptext);              // 11
+        }
+
+        return res;                                     // 12
+    }
+
+    return {};                                          // 13
+}
+
+std::string extractText(const GumboNode *node) {
+    GumboNode *extracted_text =                         // 14
+        static_cast<GumboNode *>(node->v.element.children.data[0]);
+    if (extracted_text->type == GUMBO_NODE_TEXT) {      // 15
+        return extracted_text->v.text.text;             // 16
+    }
+
+    return {};                                          // 17
+}
+\end{lstlisting}
+
+Функция Parser::getSteps() вычленяет шаги из html-файла рецепта с сайта \url{chiefs.kz}, а затем складывает полученные строки в вектор.
+
+Функция extractText вычленяет из объекта типа GumboNode текст и возвращает его в формате std::string
+
+Комментарии с числами указывают номера вершин, соответствующих определённым строкам.
+
+В коде используются только стандартные и библиотечные (GumboNode) типы данных.
+
+Функции hasClass и filterNodes являются пользовательскими, однако включают в себя множество рекурсивных вызовов, выполняя при этом функции, которая могли бы быть предложены библиотекой. В целях упрощения построения графов, данные функции будут восприниматься как библиотечные, а соответственно не будет представлен их полный код. Такое действие оправдано, так как они не изменяют входные данные, а следовательно, при распараллеливании могут быть вызваны любым потоком при условии, что один объект GumboNode обрабатывается одним потоком.

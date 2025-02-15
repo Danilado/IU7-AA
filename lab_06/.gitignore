@@ -1,0 +1,17 @@
+__pycache__
+svg-inkscape
+build
+.vscode
+
+*.aux
+*.log
+*.out
+*.synctex*
+*latexmk
+*.toc
+*.fls
+*.bbl
+*.blg
+
+data
+outData

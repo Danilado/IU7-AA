@@ -1,0 +1,33 @@
+% !TEX root = ./report.tex
+
+\input{parts/config}
+
+\begin{document}
+
+\include{parts/title}
+
+\setcounter{page}{3}
+
+\begingroup
+\renewcommand{\vspace}[2]{}% Gobble 2 arguments after \vspace
+\def\contentsname{\begin{center}СОДЕРЖАНИЕ\end{center}}
+\tableofcontents
+\endgroup
+
+\include{parts/intro}
+
+\include{parts/req}
+
+\include{parts/dev}
+
+\include{parts/example}
+
+\include{parts/testing}
+
+\include{parts/conclusion}
+
+\def\bibname{\begin{center}\Large СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ\end{center}}
+
+\include{parts/materials}
+
+\end{document}

@@ -1,0 +1,29 @@
+\begin{thebibliography}{1}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\language\csname l@#1\endcsname\fi}
+\ifx\undefined\url\def\url#1{{\small #1}}\else\fi
+\ifx\undefined\BibUrl\def\BibUrl#1{\url{#1}}\else\fi
+\ifx\undefined\BibAnnote\long\def\BibAnnote#1{(#1)}\else\fi
+\ifx\undefined\BibEmph\def\BibEmph#1{\emph{#1}}\else\fi
+
+\bibitem{applegate2011traveling}
+\selectlanguageifdefined{russian}
+The Traveling Salesman Problem: A Computational Study~/ D.L.~Applegate, R.E.~Bixby, V.~Chv{\'a}tal {[и~др.]}.
+\newblock Princeton Series in Applied Mathematics. Princeton University Press, 2011. URL:  https://books.google.ru/books?id=zfIm94nNqPoC.
+
+\bibitem{ylanov}
+\selectlanguageifdefined{russian}
+Ульянов~М.~В. Ресурсно-эффективные компьютерные алгоритмы. Разработка и анализ : учебное пособие.
+\newblock --- Москва : ФИЗМАТЛИТ, 2008.
+
+\bibitem{antAlgs}
+\selectlanguageifdefined{russian}
+Штовба~С.~Д. Муравьиные алгоритмы. [Электронный ресурс].
+\newblock --- Режим доступа: \url{https://masters.donntu.ru/2010/fknt/chorniy/library/article7.htm} (дата обращения: 01.12.2024).
+
+\bibitem{cpp}
+\selectlanguageifdefined{russian}
+ISO International Standard ISO/IEC 14882:2020(E) [Working Draft] – Programming Language C++.
+
+\end{thebibliography}

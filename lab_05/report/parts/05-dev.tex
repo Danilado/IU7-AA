@@ -1,0 +1,163 @@
+\chapter{Разработка ПО}
+
+Для реализации алгоритмов был выбран язык программирования c++ стандарта 14882 (c++20)~\cite{cpp}. Этот язык достаточен для выполнения работы, так как его стандартная библиотека предлагает средства для работы с нативными потоками.
+
+Для работы с базами данных была использована библиотека SQLite3~\cite{sqlite}. Она предоставляет такие функции для работы с базой данных, как:
+\begin{itemize}
+    \item создание БД;
+    \item создание таблиц;
+    \item поддержка SQL запросов;
+\end{itemize}
+
+Для извлечения элементов с html страниц была использована библиотека Gumbo~\cite{gumbo}. Эта библиотека предоставляет возможность поиска определённых html-элементов с учётом различных параметров, а также даёт возможность извлечения данных с них.
+
+Принцип конвейерной обработки был реализован с использованием стандартных функций для работы с потоками языка c++, однако для поддержания потоконезависимой очереди была использована библиотека OneTBB~\cite{onetbb}, а конкретно --- её модуль <<concurrent\_queue>>
+
+Структуры данных, использующиеся для конвейерной обработки:
+
+Структура задачи представлена в листинге~\ref{lst:task}.
+
+\begin{lstlisting}[caption={Структура задачи},label={lst:task}]
+    
+class Task {
+    public:
+      int id;
+      int stage;
+      std::chrono::time_point<std::chrono::high_resolution_clock> timestamp;
+      std::vector<std::chrono::microseconds> times;
+    
+      std::string filename;
+      std::string data;
+    
+      std::string title;
+      std::string image;
+      std::string ingredients;
+      std::vector<std::string> steps;
+    
+    public:
+      Task() {}
+      Task(int id, const std::string &filename) : id(id), filename(filename) {
+        timestamp = std::chrono::high_resolution_clock::now();
+      }
+    
+      std::chrono::microseconds nextStage() {
+        std::chrono::time_point<std::chrono::high_resolution_clock> t2 =
+            std::chrono::high_resolution_clock::now();
+    
+        times.push_back(
+            std::chrono::duration_cast<std::chrono::microseconds>(t2 - timestamp));
+    
+        stage++;
+    
+        timestamp = std::chrono::high_resolution_clock::now();
+    
+        return times.back();
+      }
+    };    
+\end{lstlisting}
+
+Класс, управляющий задачами представлен в листинге~\ref{lst:taskmgr}.
+
+\begin{lstlisting}[caption={Класс, управляющий задачами},label={lst:taskmgr}]
+class TaskManager {
+private:
+  tbb::concurrent_queue<Task> stage1Queue;
+  tbb::concurrent_queue<Task> stage2Queue;
+  tbb::concurrent_queue<Task> stage3Queue;
+  tbb::concurrent_vector<Task> finished;
+  std::atomic<int> taskCounter{0};
+
+  std::atomic<bool> running = false;
+
+  Logger logger;
+  DatabaseManager db;
+
+  void logTask(const Task &task, const std::string &message,
+               const std::chrono::microseconds &time);
+
+  void readFileStage();
+  void processDataStage();
+  void writeToDBStage();
+
+public:
+  TaskManager();
+  void run();
+  void stop();
+  void push(Task t);
+  const tbb::concurrent_vector<Task> &getFinished() { return finished; }
+};
+\end{lstlisting}
+
+Задачи попадают в очередь первой стадии при использовании функции push у управляющего задачами.
+
+Обработка начинается при использовании функции run и заканчивается при использовании функции stop (однако при использовании stop процесс будет заблокирован до завершения обработки всех процессов, находящихся в очереди).
+
+Реализация функции run и функций каждого этапа обработки представлены в листинге~\ref{lst:taskmgrrun}.
+
+\begin{lstlisting}[caption={Реализация функции run и функций каждого этапа обработки},label={lst:taskmgrrun}]
+void TaskManager::run() {
+    running = true;
+    std::thread reader(&TaskManager::readFileStage, this);
+    std::thread processor(&TaskManager::processDataStage, this);
+    std::thread writer(&TaskManager::writeToDBStage, this);
+}
+
+void TaskManager::readFileStage() {
+  while (running || taskCounter) {
+    Task task;
+    if (stage1Queue.try_pop(task)) {
+      auto duration = task.nextStage();
+      logTask(task, "started step 1", duration);
+
+      task.data = Reader::read(task.filename);
+
+      duration = task.nextStage();
+      stage2Queue.push(task);
+      logTask(task, "finished step 1", duration);
+    }
+  }
+}
+
+void TaskManager::processDataStage() {
+  while (running || taskCounter) {
+    Task task;
+    if (stage2Queue.try_pop(task)) {
+      auto duration = task.nextStage();
+      logTask(task, "started step 2", duration);
+
+      Parser p(task.data);
+      task.title = p.getTitle();
+      task.image = p.getImage();
+      task.ingredients = p.getIngredients();
+      task.steps = p.getSteps();
+
+      duration = task.nextStage();
+      stage3Queue.push(task);
+      logTask(task, "finished step 2", duration);
+    }
+  }
+}
+
+void TaskManager::writeToDBStage() {
+  while (running || taskCounter) {
+    Task task;
+    if (stage3Queue.try_pop(task)) {
+      auto duration = task.nextStage();
+      logTask(task, "started step 3", duration);
+
+      db.insertRecipe(task.id, task.title, task.ingredients, task.steps,
+                      task.image);
+
+      duration = task.nextStage();
+      finished.push_back(task);
+      taskCounter--;
+      logTask(task, "finished step 3", duration);
+    }
+  }
+}
+
+\end{lstlisting}
+
+Таким образом, создаётся 3 потока, выполняющих обработку каждого из трёх этапов соответственно.
+
+Задачи перемещаются по очередям соответствующих этапов, пока их обработка не будет завершена.

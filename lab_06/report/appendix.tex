@@ -1,0 +1,79 @@
+\documentclass[ut8x, 14pt, oneside, a4paper]{extarticle}
+
+\input{parts/99-config}
+
+\begin{document}
+
+\section*{Приложение А}
+\addcontentsline{toc}{section}{Приложение А}
+
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{longtable}[c]{|l|l|l|l|l|l|}
+        \caption{Параметризация для класса данных 1\label{tbl:param_kd1-1}, Days --- количество дней, Result --- результат работы, Mistake --- ошибочность полученного результата}\\
+        
+    % Заголовок для первой страницы
+    \endfirsthead
+
+    % Заголовок для последующих страниц
+    \multicolumn{6}{l}{Продолжение таблицы~\ref{tbl:param_kd1-1}} \\
+    \hline
+    $\alpha$ & $\rho$ & Days & e & Result & Mistake \\ 
+    \hline
+    \endhead
+
+    \hline
+    $\alpha$ & $\rho$ & Days & e & Result & Mistake
+    \csvreader{../outData/parametrization_class1.csv}{}
+        {\\ \hline \csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi} 
+			\\ \hline
+\end{longtable}
+\end{center}
+
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{longtable}[c]{|l|l|l|l|l|l|}
+        \caption{Параметризация для класса данных 2\label{tbl:param_kd2}, Days --- количество дней, Result --- результат работы, Mistake --- ошибочность полученного результата}\\
+
+            % Заголовок для первой страницы
+        \endfirsthead
+
+        % Заголовок для последующих страниц
+        \multicolumn{6}{l}{Продолжение таблицы~\ref{tbl:param_kd2}} \\
+        \hline
+        $\alpha$ & $\rho$ & Days & e & Result & Mistake \\ 
+        \hline
+        \endhead
+
+        \hline
+        $\alpha$ & $\rho$ & Days & e & Result & Mistake
+        \csvreader{../outData/parametrization_class2.csv}{}
+			{\\ \hline \csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi} 
+			\\ \hline
+\end{longtable}
+\end{center}
+
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{longtable}[c]{|l|l|l|l|l|l|}
+        \caption{Параметризация для класса данных 3\label{tbl:param_kd3}, Days --- количество дней, Result --- результат работы, Mistake --- ошибочность полученного результата}\\
+
+    % Заголовок для первой страницы
+    \endfirsthead
+
+    % Заголовок для последующих страниц
+    \multicolumn{6}{l}{Продолжение таблицы~\ref{tbl:param_kd3}} \\
+    \hline
+    $\alpha$ & $\rho$ & Days & e & Result & Mistake \\ 
+    \hline
+    \endhead
+
+    \hline
+    $\alpha$ & $\rho$ & Days & e & Result & Mistake
+    \csvreader{../outData/parametrization_class3.csv}{}
+        {\\ \hline \csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi} 
+        \\ \hline
+\end{longtable}
+\end{center}
+
+\end{document}
